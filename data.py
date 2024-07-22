@@ -6,7 +6,7 @@ f.close()
 base_url = 'https://api.recruitee.com/c/95238'
 
 
-def get_data(endpoint, params={}, pagination=0, json_data_reference=''):
+def get_data(endpoint, params={}, pagination=0, json_data_reference=None):
     headers = {
         "accept": "application/json",
         "Authorization": "Bearer " + API_Token
@@ -27,12 +27,15 @@ def get_data(endpoint, params={}, pagination=0, json_data_reference=''):
                 print("Error: ", response.status_code)
                 break
 
-            data = response.json()
+            if json_data_reference:
+                data = response.json()[json_data_reference]
+            else:
+                data = response.json()
 
-            if not data[json_data_reference]:
+            if not data:
                 break
 
-            lst.append(data[json_data_reference])
+            lst.append(data)
 
             # Increment the offset by the limit
             page += 1
@@ -42,4 +45,9 @@ def get_data(endpoint, params={}, pagination=0, json_data_reference=''):
     else:
         response = requests.get(base_url + endpoint, headers=headers, params=params)
 
-        return response.json()[json_data_reference]
+        if json_data_reference:
+            data = response.json()[json_data_reference]
+        else:
+            data = response.json()
+
+        return data
