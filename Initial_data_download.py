@@ -65,7 +65,7 @@ for row in all_candidate_data_df['placements']:
     for pl in row:
         placements.append(pl)
 
-placements_df = pd.json_normalize(placements)[['candidate_id', 'offer_id', 'stage_id']]
+placements_df = pd.json_normalize(placements)[['candidate_id', 'offer_id', 'stage_id', 'disqualified_at', 'disqualify_reason']]
 
 pipeline_templates = get_data('/pipeline_templates', json_data_reference='pipeline_templates')
 template_ids = []
@@ -90,13 +90,12 @@ stages_df['stage_names'] = stage_names
 conn = sqlite3.connect("C:\\Users\\nochum.paltiel\\Documents\\PycharmProjects\\recruitee_data_analysis\\recruitee.db")
 
 # Create all tables
-admins_df.to_sql("admins", conn)
-activities_df.to_sql("activities", conn)
-interviews_df.to_sql("interviews", conn)
-candidates_df.to_sql("candidates", conn)
-placements_df.to_sql("placements", conn)
-offers_df.to_sql("jobs", conn)
-stages_df.to_sql("stages", conn)
+admins_df.to_sql("admins", conn, if_exists='replace')
+activities_df.to_sql("activities", conn, if_exists='replace')
+interviews_df.to_sql("interviews", conn, if_exists='replace')
+candidates_df.to_sql("candidates", conn, if_exists='replace')
+placements_df.to_sql("placements", conn, if_exists='replace')
+offers_df.to_sql("jobs", conn, if_exists='replace')
+stages_df.to_sql("stages", conn, if_exists='replace')
 
 conn.close()
-
