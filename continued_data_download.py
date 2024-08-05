@@ -31,6 +31,7 @@ interviews_df = pd.json_normalize(interviews)[['id', 'admin_ids', 'starts_at', '
 # Process admin_ids
 interviews_df['admin_id'] = interviews_df['admin_ids'].apply(lambda x: x[0] if len(x) > 0 else None)
 interviews_df.rename(columns={'id': 'interview_id', 'starts_at': 'interview_date'}, inplace=True)
+interviews_df.drop(columns=['admin_ids'], inplace=True)
 
 # Get Offers
 jobs_df = pd.json_normalize(get_data('/offers', json_data_reference='offers'))[['id', 'title']]
@@ -39,7 +40,7 @@ jobs_df.rename(columns={'id': 'offer_id', 'title': 'offer_title'}, inplace=True)
 # Get Candidates
 candidates = get_data('/candidates', json_data_reference='candidates')
 all_candidate_data_df = pd.json_normalize(candidates)
-candidates_df = all_candidate_data_df[['id', 'name', 'created_at', 'positive_ratings', 'source']]
+candidates_df = all_candidate_data_df[['id', 'name', 'created_at', 'positive_ratings', 'source']].copy()
 candidates_df.rename(columns={'id': 'candidate_id', 'name': 'candidate_name'}, inplace=True)
 
 # Get Placements
