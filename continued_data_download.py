@@ -6,8 +6,8 @@ import sqlite3
 
 
 today = datetime.date.today()
-start_of_last_week = today - datetime.timedelta(days=today.weekday()+8)
-end_of_last_week = start_of_last_week + datetime.timedelta(days=6)
+start_of_last_week = today - datetime.timedelta(days=today.weekday()+15)
+end_of_last_week = start_of_last_week + datetime.timedelta(days=13)
 
 start_of_last_week = start_of_last_week.strftime('%d %b %Y')
 end_of_last_week = end_of_last_week.strftime('%d %b %Y')
