@@ -26,11 +26,11 @@ activities_df.rename(columns={'id': 'activity_id', 'candidate.id': 'candidate_id
 # Get past interviews data
 past_interviews = get_data('/interview/events',params={'status': 'past_due'}, pagination=1000,json_data_reference='interview_events')
 interviews = [item for sublist in past_interviews for item in sublist]
-interviews_df = pd.json_normalize(interviews)[['id', 'admin_ids', 'starts_at', 'candidate_id', 'offer_id', 'kind']]
+interviews_df = pd.json_normalize(interviews)[['id','admin_id', 'admin_ids', 'starts_at', 'candidate_id', 'offer_id', 'kind']]
 
 # Process admin_ids
+interviews_df.rename(columns={'id': 'interview_id', 'starts_at': 'interview_date', 'admin_id': 'scheduler_id'}, inplace=True)
 interviews_df['admin_id'] = interviews_df['admin_ids'].apply(lambda x: x[0] if len(x) > 0 else None)
-interviews_df.rename(columns={'id': 'interview_id', 'starts_at': 'interview_date'}, inplace=True)
 interviews_df.drop(columns=['admin_ids'], inplace=True)
 
 # Get Offers
