@@ -6,10 +6,10 @@ import sqlite3
 
 
 today = datetime.date.today()
-start_of_last_week = today - datetime.timedelta(days=today.weekday()+15)
-end_of_last_week = start_of_last_week + datetime.timedelta(days=13)
+start_of_last2_week = today - datetime.timedelta(days=today.weekday()+15)
+end_of_last_week = start_of_last2_week + datetime.timedelta(days=13)
 
-start_of_last_week = start_of_last_week.strftime('%d %b %Y')
+start_of_last2_week = start_of_last2_week.strftime('%d %b %Y')
 end_of_last_week = end_of_last_week.strftime('%d %b %Y')
 
 # Get Admins Table
@@ -17,7 +17,7 @@ admins_df = pd.json_normalize(get_data('/admins', json_data_reference='admins'))
 admins_df.rename(columns={'id': 'admin_id'}, inplace=True)
 
 # Get Activities data
-activities = get_data('/tracking/activities', params={'start_date': start_of_last_week}, pagination=500, json_data_reference='activities')
+activities = get_data('/tracking/activities', params={'start_date': start_of_last2_week}, pagination=500, json_data_reference='activities')
 
 activity = [item for sublist in activities for item in sublist]
 activities_df = pd.json_normalize(activity)[['id', 'event', 'created_at','message_html','candidate.id', 'admin.id', 'offer.id']]
