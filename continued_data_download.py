@@ -73,7 +73,7 @@ for id in template_ids:
 stages_df = pd.DataFrame({'stage_id': stage_id, 'stage_name': stage_name})
 
 # Create tables in database
-conn = sqlite3.connect("C:\\Users\\nochum.paltiel\\Documents\\PycharmProjects\\recruitee_data_analysis\\recruitee2.db")
+conn = sqlite3.connect("C:\\Users\\nochu\\Documents\\Pycharm Projects\\recruitee_data_analysis\\recruitee2.db")
 cur = conn.cursor()
 
 # Create all tables
