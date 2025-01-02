@@ -5,7 +5,7 @@ import datetime
 import sqlite3
 
 today = datetime.date.today()
-start_of_last2_week = today - datetime.timedelta(days=today.weekday() + 15)
+start_of_last2_week = today - datetime.timedelta(days=today.weekday() + 43)
 end_of_last_week = start_of_last2_week + datetime.timedelta(days=13)
 
 start_of_last2_week = start_of_last2_week.strftime('%d %b %Y')
@@ -73,7 +73,7 @@ for id in template_ids:
 stages_df = pd.DataFrame({'stage_id': stage_id, 'stage_name': stage_name})
 
 # Create tables in database
-conn = sqlite3.connect("C:\\Users\\nochu\\Documents\\Pycharm Projects\\recruitee_data_analysis\\recruitee2.db")
+conn = sqlite3.connect("C:\\Users\\nochum.paltiel\\Documents\\PycharmProjects\\recruitee_data_analysis\\recruitee2.db")
 cur = conn.cursor()
 
 # Create all tables
