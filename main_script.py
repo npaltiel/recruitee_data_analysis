@@ -3,6 +3,7 @@ from add_to_db import insert_or_replace
 import pandas as pd
 import datetime
 import sqlite3
+import psycopg2
 
 today = datetime.date.today()
 start_of_last2_week = today - datetime.timedelta(days=today.weekday() + 43)
@@ -73,8 +74,13 @@ for id in template_ids:
 stages_df = pd.DataFrame({'stage_id': stage_id, 'stage_name': stage_name})
 
 # Create tables in database
-conn = sqlite3.connect(
-    "C:\\Users\\nochum.paltiel\\OneDrive - Anchor Home Health care\\Documents\\PycharmProjects\\recruitee_data_analysis\\recruitee2.db")
+conn = psycopg2.connect(
+    host="your-db-host",
+    port="5432",
+    user="your-username",
+    password="your-password",
+    dbname="your-db-name"
+)
 cur = conn.cursor()
 
 # Create all tables
